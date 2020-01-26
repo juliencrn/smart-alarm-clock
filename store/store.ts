@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from 'redux'
 
-import alarm from './reducers/alarmReducer'
-import home from './reducers/homeReducer'
+import alarm from './alarm/reducer'
+import home from './home/reducer'
 
 export default createStore(combineReducers({
   alarm,

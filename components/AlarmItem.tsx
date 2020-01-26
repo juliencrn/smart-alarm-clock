@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { IAlarm, State } from '../types'
 import DaysList from './DaysList'
-import { toggleAlarm, deleteAlarm } from '../store/actions/alarmActions'
+import { toggleAlarm, deleteAlarm } from '../store/alarm/actions'
 import { getHumanTime } from '../utils'
 
 const style = StyleSheet.create({

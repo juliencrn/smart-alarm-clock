@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { Page, State } from '../types'
 import AlarmForm from '../components/AlarmForm'
-import { editAlarm } from '../store/actions/alarmActions'
+import { editAlarm } from '../store/alarm/actions'
 
 const style = StyleSheet.create({
   root: {

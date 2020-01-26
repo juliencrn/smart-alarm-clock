@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import AlarmForm from '../components/AlarmForm'
-import { addAlarm } from '../store/actions/alarmActions'
+import { addAlarm } from '../store/alarm/actions'
 
 const style = StyleSheet.create({
   root: {

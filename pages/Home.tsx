@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Page, State } from '../types'
 import AlarmList from '../components/AlarmList'
-import { toggleEdit } from '../store/actions/homeActions'
+import { toggleEdit } from '../store/home/actions'
 
 const style = StyleSheet.create({
   root: {
