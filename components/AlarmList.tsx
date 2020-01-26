@@ -2,19 +2,18 @@ import React from 'react'
 import { ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import { IAlarm } from '../types'
+import { State } from '../types'
 import AlarmItem from './AlarmItem'
-import { State } from '../store/reducer'
 
 interface Props {
     handleClick: (id: string) => void
 }
 
 export default function AlarmList({ handleClick }: Props) {
-  const { alarms } = useSelector((state: State) => state)
+  const { alarms } = useSelector((state: State) => state.alarm)
   return (
     <ScrollView>
-      {alarms.map((alarm: IAlarm) => (
+      {alarms.map((alarm) => (
         <AlarmItem
           {...alarm}
           key={alarm.id}

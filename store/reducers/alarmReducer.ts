@@ -1,16 +1,13 @@
-import { IAlarm } from '../types'
+import { IAlarm } from '../../types'
 import {
-  ADD_ALARM, EDIT_ALARM, DELETE_ALARM, TOGGLE_HOME_EDIT, TOGGLE_ALARM_ACTIVATION,
-} from './constants'
+  ADD_ALARM, EDIT_ALARM, DELETE_ALARM, TOGGLE_ALARM_ACTIVATION,
+} from '../constants'
 
-export interface State {
+export interface AlarmState {
     alarms: IAlarm[]
-    home: {
-        isEditing: boolean
-    }
 }
 
-const initialState: State = {
+const initialState: AlarmState = {
   alarms: [
     {
       id: 'abc123',
@@ -41,12 +38,9 @@ const initialState: State = {
       activated: false,
     },
   ],
-  home: {
-    isEditing: false,
-  },
 }
 
-export default function reducer(state: State = initialState, action) {
+export default function reducer(state: AlarmState = initialState, action) {
   switch (action.type) {
     case ADD_ALARM:
       return { ...state, alarms: [...state.alarms, action.alarms] }
@@ -72,8 +66,6 @@ export default function reducer(state: State = initialState, action) {
           return alarm
         }),
       }
-    case TOGGLE_HOME_EDIT:
-      return { ...state, home: { ...state.home, isEditing: action.value } }
     default:
       return state
   }

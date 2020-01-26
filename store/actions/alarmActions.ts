@@ -1,7 +1,7 @@
-import { IAlarm } from '../types'
+import { IAlarm } from '../../types'
 import {
-  ADD_ALARM, DELETE_ALARM, EDIT_ALARM, TOGGLE_HOME_EDIT, TOGGLE_ALARM_ACTIVATION,
-} from './constants'
+  ADD_ALARM, DELETE_ALARM, EDIT_ALARM, TOGGLE_ALARM_ACTIVATION,
+} from '../constants'
 
 export const addAlarm = (alarm: IAlarm) => ({
   type: ADD_ALARM,
@@ -21,10 +21,5 @@ export const deleteAlarm = (id: string) => ({
 export const toggleAlarm = (id: string, value: boolean) => ({
   type: TOGGLE_ALARM_ACTIVATION,
   id,
-  value,
-})
-
-export const toggleHomeEdit = (value: boolean) => ({
-  type: TOGGLE_HOME_EDIT,
   value,
 })

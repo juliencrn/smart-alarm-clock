@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Text, StyleSheet, View, Switch, Button,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { IAlarm } from '../types'
+import { IAlarm, State } from '../types'
 import DaysList from './DaysList'
-import { toggleAlarm, deleteAlarm } from '../store/actions'
-import { State } from '../store/reducer'
+import { toggleAlarm, deleteAlarm } from '../store/actions/alarmActions'
 
 const style = StyleSheet.create({
   card: {

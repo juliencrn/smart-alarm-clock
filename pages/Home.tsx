@@ -2,10 +2,9 @@ import React from 'react'
 import { View, Button, StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Page } from '../types'
+import { Page, State } from '../types'
 import AlarmList from '../components/AlarmList'
-import { State } from '../store/reducer'
-import { toggleHomeEdit } from '../store/actions'
+import { toggleEdit } from '../store/actions/homeActions'
 
 const style = StyleSheet.create({
   root: {
@@ -29,16 +28,16 @@ export default function Home({ navigation }: Page) {
 
   const goToEdit = (id) => {
     navigation.navigate('Edit', { id })
-    dispatch(toggleHomeEdit(false))
+    dispatch(toggleEdit(false))
   }
 
   const goToNew = () => {
     navigation.navigate('New')
-    dispatch(toggleHomeEdit(false))
+    dispatch(toggleEdit(false))
   }
 
   const toggleEditMode = () => {
-    dispatch(toggleHomeEdit(!isEditing))
+    dispatch(toggleEdit(!isEditing))
   }
 
   return (

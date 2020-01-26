@@ -1,6 +1,8 @@
+// Alarm
 export const ADD_ALARM = 'ADD_ALARM'
 export const EDIT_ALARM = 'EDIT_ALARM'
 export const DELETE_ALARM = 'DELETE_ALARM'
 export const TOGGLE_ALARM_ACTIVATION = 'TOGGLE_ALARM_ACTIVATION'
 
+// Home
 export const TOGGLE_HOME_EDIT = 'TOGGLE_HOME_EDIT'
