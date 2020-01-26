@@ -1,40 +1,67 @@
-import React from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import React, { useState } from 'react'
+import {
+  Text, StyleSheet, View, Switch,
+} from 'react-native'
 
 import { IAlarm } from '../types'
+import DaysList from './DaysList'
 
 const style = StyleSheet.create({
   card: {
-    padding: 16,
+    paddingBottom: 8,
+    paddingTop: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   clock: {
     fontSize: 48,
   },
   meta: {
-    fontSize: 30,
+    fontSize: 16,
     flexDirection: 'row',
+  },
+  name: {
+    fontWeight: 'bold',
+  },
+  left: {
+    flex: 1,
+  },
+  right: {
+    justifyContent: 'center',
   },
 })
 
-export default function AlarmItem({ name, clock, days }: IAlarm) {
+export default function AlarmItem({
+  name, clock, days, activated,
+}: IAlarm) {
   const hasDays = days && days.length > 0
+  const [isActivated, setIsActivated] = useState(activated)
+
+  const handleSwitch = (value: boolean) => {
+    setIsActivated(value)
+  }
+
   return (
     <View style={style.card}>
-      <Text style={style.clock}>
-        {clock}
-      </Text>
-      <Text style={style.meta}>
-        <Text>
-          {`${name}${hasDays ? ',' : ''}`}
+      <View style={style.left}>
+        <Text style={style.clock}>
+          {clock}
         </Text>
-        <Text>
-          {`${hasDays ? days.map((day) => ` ${day}`) : ''}`}
+        <Text style={style.meta}>
+          <Text style={style.name}>
+            {`${name}${hasDays ? ' - ' : ''}`}
+          </Text>
+          {hasDays && <DaysList days={days} />}
         </Text>
-      </Text>
+      </View>
+      <View style={style.right}>
+        <Switch onValueChange={(value: boolean) => handleSwitch(value)} value={isActivated} />
+      </View>
+
     </View>
   )
 }
-
-/*
-${i !== 0 ? ',': null}
-*/
