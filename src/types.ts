@@ -1,7 +1,7 @@
 import { NavigationStackProp } from 'react-navigation-stack'
 
-import { HomeState } from './store/reducers/homeReducer'
-import { AlarmState } from './store/reducers/alarmReducer'
+import { HomeState } from './store/home/reducer'
+import { AlarmState } from './store/alarm/reducer'
 
 export type WeekDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday'
 export type WeekEndDay = 'saturday' | 'sunday'
