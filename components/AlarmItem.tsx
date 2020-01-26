@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { IAlarm, State } from '../types'
 import DaysList from './DaysList'
 import { toggleAlarm, deleteAlarm } from '../store/actions/alarmActions'
+import { getHumanTime } from '../utils'
 
 const style = StyleSheet.create({
   card: {
@@ -44,7 +45,7 @@ interface Props extends IAlarm {
   handleEdit: (id: string) => void
 }
 
-// Todo add remove btn
+// Todo : OnEdit, add all area clickable
 export default function AlarmItem({
   id, name, clock, days, activated, handleEdit,
 }: Props) {
@@ -74,7 +75,7 @@ export default function AlarmItem({
 
       <View style={style.main}>
         <Text style={style.clock}>
-          {clock}
+          {getHumanTime(clock)}
         </Text>
         <Text style={style.meta}>
           <Text style={style.name}>

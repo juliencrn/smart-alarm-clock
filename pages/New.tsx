@@ -1,8 +1,9 @@
 import React from 'react'
-import {
-  View, Text, StyleSheet,
-} from 'react-native'
-import { Page } from '../types'
+import { View, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux'
+
+import AlarmForm from '../components/AlarmForm'
+import { addAlarm } from '../store/actions/alarmActions'
 
 const style = StyleSheet.create({
   root: {
@@ -10,11 +11,18 @@ const style = StyleSheet.create({
   },
 })
 
-// Todo : Externalize the Form component for use it in New.tsx template
-export default function New({ navigation }: Page) {
+export default function New() {
+  const dispatch = useDispatch()
+  const handleSubmit = (values) => {
+    console.log('Submitted on "Edit Alarm', { values })
+    dispatch(addAlarm(values))
+    console.log('saved')
+    // todo : redirect
+  }
+
   return (
     <View style={style.root}>
-      <Text>New Alarm page</Text>
+      <AlarmForm onSubmit={handleSubmit} />
     </View>
   )
 }
