@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Text, StyleSheet, View, Switch,
+  Text, StyleSheet, View, Switch, Button,
 } from 'react-native'
 
 import { IAlarm } from '../types'
@@ -10,8 +10,8 @@ const style = StyleSheet.create({
   card: {
     paddingBottom: 8,
     paddingTop: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingLeft: 8,
+    paddingRight: 8,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
     flexDirection: 'row',
@@ -27,17 +27,27 @@ const style = StyleSheet.create({
   name: {
     fontWeight: 'bold',
   },
-  left: {
+  main: {
     flex: 1,
+    paddingLeft: 8,
+    paddingRight: 8,
   },
-  right: {
+  side: {
     justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 
+interface Props extends IAlarm {
+  isEditing: boolean
+  handleEdit: (id: string) => void
+}
+
+// Todo add remove btn
 export default function AlarmItem({
-  name, clock, days, activated,
-}: IAlarm) {
+  id, name, clock, days, activated, isEditing, handleEdit,
+
+}: Props) {
   const hasDays = days && days.length > 0
   const [isActivated, setIsActivated] = useState(activated)
 
@@ -47,7 +57,17 @@ export default function AlarmItem({
 
   return (
     <View style={style.card}>
-      <View style={style.left}>
+
+      {isEditing && (
+        <View style={style.side}>
+          <Button
+            title="Del"
+            onPress={() => console.log(`click on delete ${name}`)}
+          />
+        </View>
+      )}
+
+      <View style={style.main}>
         <Text style={style.clock}>
           {clock}
         </Text>
@@ -58,8 +78,19 @@ export default function AlarmItem({
           {hasDays && <DaysList days={days} />}
         </Text>
       </View>
-      <View style={style.right}>
-        <Switch onValueChange={(value: boolean) => handleSwitch(value)} value={isActivated} />
+
+      <View style={style.side}>
+        {isEditing ? (
+          <Button
+            title=">"
+            onPress={() => handleEdit(id)}
+          />
+        ) : (
+          <Switch
+            onValueChange={(value: boolean) => handleSwitch(value)}
+            value={isActivated}
+          />
+        )}
       </View>
 
     </View>

@@ -1,3 +1,5 @@
+import { NavigationStackProp } from 'react-navigation-stack'
+
 export type WeekDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday'
 export type WeekEndDay = 'saturday' | 'sunday'
 export type Day = WeekDay | WeekEndDay
@@ -8,4 +10,8 @@ export interface IAlarm {
     clock: string
     days?: Day[],
     activated: boolean
+}
+
+export interface Page {
+    navigation: NavigationStackProp
 }
