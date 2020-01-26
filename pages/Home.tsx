@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Button, StyleSheet } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
-
-import { alarms } from '../utils'
 import { Page } from '../types'
 import AlarmList from '../components/AlarmList'
+import { State } from '../store/reducer'
+import { toggleHomeEdit } from '../store/actions'
 
 const style = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   header: {
     backgroundColor: 'white',
     flexDirection: 'row',
@@ -20,23 +24,33 @@ const style = StyleSheet.create({
 
 // todo : Sort list by hour (in ms)
 export default function Home({ navigation }: Page) {
-  const [isEditing, setIsEditing] = useState(false)
+  const { isEditing } = useSelector((state: State) => state.home)
+  const dispatch = useDispatch()
 
-  const handleEdit = () => {
-    setIsEditing(!isEditing)
+  const goToEdit = (id) => {
+    navigation.navigate('Edit', { id })
+    dispatch(toggleHomeEdit(false))
   }
 
-  const editAlarm = (id) => {
-    navigation.navigate('Edit', { id })
+  const goToNew = () => {
+    navigation.navigate('New')
+    dispatch(toggleHomeEdit(false))
+  }
+
+  const toggleEditMode = () => {
+    dispatch(toggleHomeEdit(!isEditing))
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={style.root}>
       <View style={style.header}>
-        <Button title={isEditing ? 'OK' : 'Edit'} onPress={() => handleEdit()} />
-        <Button title="+" onPress={() => console.log('new pressed')} />
+        <Button
+          title={isEditing ? 'OK' : 'Edit'}
+          onPress={toggleEditMode}
+        />
+        <Button title="+" onPress={goToNew} />
       </View>
-      <AlarmList alarms={alarms} handleClick={(id) => editAlarm(id)} isEditing={isEditing} />
+      <AlarmList handleClick={goToEdit} />
     </View>
   )
 }

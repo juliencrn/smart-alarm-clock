@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import {
   Text, StyleSheet, View, Switch, Button,
 } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { IAlarm } from '../types'
 import DaysList from './DaysList'
+import { toggleAlarm, deleteAlarm } from '../store/actions'
+import { State } from '../store/reducer'
 
 const style = StyleSheet.create({
   card: {
@@ -39,20 +42,23 @@ const style = StyleSheet.create({
 })
 
 interface Props extends IAlarm {
-  isEditing: boolean
   handleEdit: (id: string) => void
 }
 
 // Todo add remove btn
 export default function AlarmItem({
-  id, name, clock, days, activated, isEditing, handleEdit,
-
+  id, name, clock, days, activated, handleEdit,
 }: Props) {
+  const dispatch = useDispatch()
+  const { isEditing } = useSelector((state: State) => state.home)
   const hasDays = days && days.length > 0
-  const [isActivated, setIsActivated] = useState(activated)
 
   const handleSwitch = (value: boolean) => {
-    setIsActivated(value)
+    dispatch(toggleAlarm(id, value))
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteAlarm(id))
   }
 
   return (
@@ -62,7 +68,7 @@ export default function AlarmItem({
         <View style={style.side}>
           <Button
             title="Del"
-            onPress={() => console.log(`click on delete ${name}`)}
+            onPress={handleDelete}
           />
         </View>
       )}
@@ -87,8 +93,8 @@ export default function AlarmItem({
           />
         ) : (
           <Switch
-            onValueChange={(value: boolean) => handleSwitch(value)}
-            value={isActivated}
+            onValueChange={handleSwitch}
+            value={activated}
           />
         )}
       </View>

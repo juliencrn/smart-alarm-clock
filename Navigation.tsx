@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 
 import Home from './pages/Home'
 import Edit from './pages/Edit'
+import New from './pages/New'
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -13,6 +14,9 @@ const AppNavigator = createStackNavigator({
   },
   Edit: {
     screen: Edit,
+  },
+  New: {
+    screen: New,
   },
 })
 

@@ -11,13 +11,10 @@ const style = StyleSheet.create({
 })
 
 // Todo : Externalize the Form component for use it in New.tsx template
-export default function Edit({ navigation }: Page) {
-  const { id } = navigation.state.params
-  console.log({ id })
-
+export default function New({ navigation }: Page) {
   return (
     <View style={style.root}>
-      <Text>Edit page</Text>
+      <Text>New Alarm page</Text>
     </View>
   )
 }
