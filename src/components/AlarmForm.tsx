@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import uuid from 'react-native-uuid'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Button, TextInput, ScrollView } from 'react-native'
+import moment from 'moment'
 import { IAlarm } from '../types'
 
 interface Props {
@@ -16,9 +17,9 @@ interface Props {
 // Todo form validation
 export default function AlarmForm({ initialValues, onSubmit }: Props) {
   const initialState: IAlarm = {
-    id: uuid(),
+    id: uuid.v1(),
     name: '',
-    clock: new Date(),
+    clock: moment().toDate(),
     days: [],
     activated: true,
     ...initialValues,
@@ -58,7 +59,7 @@ export default function AlarmForm({ initialValues, onSubmit }: Props) {
         display="clock"
         onChange={(e, value) => dispatch({
           type: 'UPDATE_CLOCK',
-          value,
+          value: moment(value).toDate(),
         })}
       />
 

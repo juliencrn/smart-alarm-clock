@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { IAlarm } from '../../types'
 import {
   ADD_ALARM, EDIT_ALARM, DELETE_ALARM, TOGGLE_ALARM_ACTIVATION,
@@ -12,28 +13,21 @@ const initialState: AlarmState = {
     {
       id: 'abc123',
       name: 'Alarm 1',
-      clock: '2020-01-26T04:59:31.534Z',
+      clock: moment('2013-02-08 09:30').toDate(),
       days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
-      activated: true,
-    },
-    {
-      id: 'abc124',
-      name: 'Alarm 2',
-      clock: '2020-01-26T04:59:31.534Z',
-      days: ['saturday', 'sunday'],
       activated: true,
     },
     {
       id: 'abc125',
       name: '#420',
-      clock: '2020-01-26T04:59:31.534Z',
+      clock: moment({ hour: 4, minute: 20 }).toDate(),
       days: ['friday'],
       activated: false,
     },
     {
       id: 'abc126',
       name: 'Running',
-      clock: '2020-01-26T04:59:31.534Z',
+      clock: moment({ hour: 16, minute: 20 }).toDate(),
       days: ['monday', 'thursday'],
       activated: false,
     },
@@ -43,7 +37,7 @@ const initialState: AlarmState = {
 export default function reducer(state: AlarmState = initialState, action) {
   switch (action.type) {
     case ADD_ALARM:
-      return { ...state, alarms: [...state.alarms, action.alarms] }
+      return { ...state, alarms: [...state.alarms, action.alarm] }
     case EDIT_ALARM:
       return {
         ...state,

@@ -11,25 +11,27 @@ interface Props {
   navigation: NavigationStackProp
 }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: ({ navigation }: Props) => ({
-      title: 'Alarms',
-      headerLeft: () => <ToggleEditButton />,
-      headerRight: () => <AddNewButton navigation={navigation} />,
-    }),
-  },
-  Edit: {
-    screen: Edit,
-  },
-  New: {
-    screen: New,
-  },
-}, {
-  initialRouteName: 'Home',
-  mode: 'card',
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: ({ navigation }: Props) => ({
+        title: 'Alarms',
+        headerLeft: () => <ToggleEditButton />,
+        headerRight: () => <AddNewButton navigation={navigation} />,
+      }),
+    },
+    Edit: {
+      screen: Edit,
+    },
+    New: {
+      screen: New,
+    },
+  }, {
+    initialRouteName: 'Home',
+    mode: 'card',
   // headerMode: 'screen',
-})
+  },
+)
 
 export default createAppContainer(AppNavigator)
