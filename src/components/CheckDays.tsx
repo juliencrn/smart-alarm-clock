@@ -3,8 +3,8 @@ import {
   StyleSheet, TouchableOpacity, View, Text,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Day } from '../types'
-import { allDays } from '../utils'
+import moment from 'moment'
+import { days as allDays } from '../utils'
 
 const style = StyleSheet.create({
   root: {
@@ -22,31 +22,38 @@ const style = StyleSheet.create({
 })
 
 interface Props {
-    selected: Day[]
-    onChange: (days: Day[]) => void
+    selected: string[]
+    onChange: (days: string[]) => void
 }
 
 export default function CheckDays({ selected, onChange }: Props) {
-  function handleChange(day) {
-    onChange(selected.indexOf(day) === -1
-      ? [...selected, day]
-      : selected.filter((d) => d !== day))
+  function handleChange(key) {
+    onChange(selected.indexOf(key) === -1
+      ? [...selected, key]
+      : selected.filter((d) => d !== key))
   }
 
   return (
     <View style={style.root}>
-      {allDays.map((day: Day) => (
-        <Fragment key={day}>
-          <TouchableOpacity onPress={() => handleChange(day)}>
-            <View style={style.item}>
-              <Icon name={selected.includes(day) ? 'check-circle' : 'radio-button-unchecked'} size={24} />
-              <Text style={style.text}>
-                {day.slice(0, 3)}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </Fragment>
-      ))}
+      {allDays.map((key) => {
+        const m = moment(key.toString(), 'e')
+        const day = {
+          key: m.format('e'),
+          label: m.format('ddd'),
+        }
+        return (
+          <Fragment key={key}>
+            <TouchableOpacity onPress={() => handleChange(key)}>
+              <View style={style.item}>
+                <Icon name={selected.includes(day.key) ? 'check-circle' : 'radio-button-unchecked'} size={24} />
+                <Text style={style.text}>
+                  {moment(key.toString(), 'e').format('ddd')}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </Fragment>
+        )
+      })}
     </View>
   )
 }

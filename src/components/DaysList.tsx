@@ -1,8 +1,8 @@
 import React from 'react'
 import { Text, StyleSheet } from 'react-native'
 
-import { Day } from '../types'
-import { days as allDays } from '../utils'
+import moment from 'moment'
+import { weekday, weekend } from '../utils'
 
 const style = StyleSheet.create({
   days: {
@@ -11,13 +11,13 @@ const style = StyleSheet.create({
 })
 
   interface Props {
-      days: Day[]
+      days: string[]
   }
 
 // Todo : sort Monday => Sunday
 export default function DaysList({ days }: Props) {
-  const weekdaysCount = days.filter((day: any) => allDays.weekday.includes(day)).length
-  const weekendCount = days.filter((day: any) => allDays.weekend.includes(day)).length
+  const weekdaysCount = days.filter((day: any) => weekday.includes(day)).length
+  const weekendCount = days.filter((day: any) => weekend.includes(day)).length
 
   const isWeekend = weekendCount === 2 && weekdaysCount === 0
   const isWeekday = weekdaysCount === 5 && weekendCount === 0
@@ -28,7 +28,10 @@ export default function DaysList({ days }: Props) {
   } else if (isWeekday) {
     output = 'every weekday'
   } else {
-    output = days.reduce((text, curr, i) => `${text}${i !== 0 ? ', ' : ''}${curr.slice(0, 3)}`, '')
+    output = days.reduce(
+      (prev, curr, i) => `${prev}${i !== 0 ? ', ' : ''}${moment(curr, 'e').format('ddd')}`,
+      '',
+    )
   }
 
   return (

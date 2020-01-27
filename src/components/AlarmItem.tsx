@@ -4,11 +4,11 @@ import {
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Icons from 'react-native-vector-icons/MaterialIcons'
+import moment from 'moment'
 
 import { IAlarm, State } from '../types'
 import DaysList from './DaysList'
 import { toggleAlarm } from '../store/alarm/actions'
-import { getHumanTime } from '../utils'
 import Touchable from './Touchable'
 
 const style = StyleSheet.create({
@@ -66,7 +66,7 @@ export default function AlarmItem({
       <View style={style.card}>
         <View style={style.main}>
           <Text style={style.clock}>
-            {getHumanTime(clock)}
+            {moment(clock).format('HH:mm')}
           </Text>
           <Text style={style.meta}>
             <Text style={style.name}>
