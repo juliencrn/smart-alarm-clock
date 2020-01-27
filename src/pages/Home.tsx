@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Page } from '../types'
 import AlarmList from '../components/AlarmList'
 import { toggleEdit } from '../store/home/actions'
+import Timer from '../components/Timer'
 
 const style = StyleSheet.create({
   root: {
@@ -32,6 +33,7 @@ export default function Home({ navigation }: Page) {
 
   return (
     <View style={style.root}>
+      <Timer />
       <AlarmList handleClick={goToEdit} />
     </View>
   )
