@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, StyleSheet } from 'react-native'
 
 import moment from 'moment'
-import { weekday, weekend } from '../utils'
+import { weekday, weekend, sortDays } from '../utils'
 
 const style = StyleSheet.create({
   days: {
@@ -28,7 +28,7 @@ export default function DaysList({ days }: Props) {
   } else if (isWeekday) {
     output = 'every weekday'
   } else {
-    output = days.reduce(
+    output = sortDays(days).reduce(
       (prev, curr, i) => `${prev}${i !== 0 ? ', ' : ''}${moment(curr, 'e').format('ddd')}`,
       '',
     )
