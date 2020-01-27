@@ -10,7 +10,6 @@ interface Props {
     handleClick: (id: string) => void
 }
 
-// ? Use flatList ?
 export default function AlarmList({ handleClick }: Props) {
   const { alarms } = useSelector((state: State) => state.alarm)
   return (

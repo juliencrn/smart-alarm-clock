@@ -14,6 +14,7 @@ const style = StyleSheet.create({
       days: Day[]
   }
 
+// Todo : sort Monday => Sunday
 export default function DaysList({ days }: Props) {
   const weekdaysCount = days.filter((day: any) => allDays.weekday.includes(day)).length
   const weekendCount = days.filter((day: any) => allDays.weekend.includes(day)).length

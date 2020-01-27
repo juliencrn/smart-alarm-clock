@@ -1,13 +1,15 @@
 import React from 'react'
 import {
-  Text, StyleSheet, View, Switch, Button,
+  Text, StyleSheet, View, Switch,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import Icons from 'react-native-vector-icons/MaterialIcons'
 
 import { IAlarm, State } from '../types'
 import DaysList from './DaysList'
-import { toggleAlarm, deleteAlarm } from '../store/alarm/actions'
+import { toggleAlarm } from '../store/alarm/actions'
 import { getHumanTime } from '../utils'
+import Touchable from './Touchable'
 
 const style = StyleSheet.create({
   card: {
@@ -45,7 +47,6 @@ interface Props extends IAlarm {
   handleEdit: (id: string) => void
 }
 
-// Todo : OnEdit, add all area clickable
 export default function AlarmItem({
   id, name, clock, days, activated, handleEdit,
 }: Props) {
@@ -57,48 +58,40 @@ export default function AlarmItem({
     dispatch(toggleAlarm(id, value))
   }
 
-  const handleDelete = () => {
-    dispatch(deleteAlarm(id))
-  }
-
   return (
-    <View style={style.card}>
-
-      {isEditing && (
-        <View style={style.side}>
-          <Button
-            title="Del"
-            onPress={handleDelete}
-          />
-        </View>
-      )}
-
-      <View style={style.main}>
-        <Text style={style.clock}>
-          {getHumanTime(clock)}
-        </Text>
-        <Text style={style.meta}>
-          <Text style={style.name}>
-            {`${name}${hasDays ? ' - ' : ''}`}
+    <Touchable
+      isTouchable={isEditing || false}
+      onPress={isEditing ? () => handleEdit(id) : null}
+    >
+      <View style={style.card}>
+        <View style={style.main}>
+          <Text style={style.clock}>
+            {getHumanTime(clock)}
           </Text>
-          {hasDays && <DaysList days={days} />}
-        </Text>
-      </View>
+          <Text style={style.meta}>
+            <Text style={style.name}>
+              {`${name}${hasDays ? ' - ' : ''}`}
+            </Text>
+            {hasDays && <DaysList days={days} />}
+          </Text>
+        </View>
 
-      <View style={style.side}>
-        {isEditing ? (
-          <Button
-            title=">"
-            onPress={() => handleEdit(id)}
-          />
-        ) : (
-          <Switch
-            onValueChange={handleSwitch}
-            value={activated}
-          />
-        )}
+        <View style={style.side}>
+          {isEditing ? (
+            <Icons
+              name="keyboard-arrow-right"
+              size={24}
+              onPress={() => handleEdit(id)}
+            />
+          ) : (
+            <Switch
+              onValueChange={handleSwitch}
+              value={activated}
+            />
+          )}
+        </View>
       </View>
+    </Touchable>
 
-    </View>
   )
 }

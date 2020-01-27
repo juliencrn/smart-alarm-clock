@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet, Button } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { ScrollView } from 'react-native-gesture-handler'
 import { Page, State } from '../types'
 import AlarmForm from '../components/AlarmForm'
-import { editAlarm } from '../store/alarm/actions'
+import { editAlarm, addAlarm, deleteAlarm } from '../store/alarm/actions'
 
 const style = StyleSheet.create({
   root: {
@@ -12,24 +13,40 @@ const style = StyleSheet.create({
 })
 
 export default function Edit({ navigation }: Page) {
-  const { id } = navigation.state.params
-  const dispatch = useDispatch()
+  const { params } = navigation.state
   const { alarms } = useSelector((state: State) => state.alarm)
-  const data = alarms.filter((alarm) => alarm.id === id)[0]
+  const dispatch = useDispatch()
+
+  const isExisting = params && params.id
+  const initialData = isExisting
+    ? alarms.filter((alarm) => alarm.id === params.id)[0]
+    : {}
 
   const handleSubmit = (values) => {
-    console.log('Submitted on "Edit Alarm', { data, values })
-    dispatch(editAlarm(values))
-    console.log('saved')
-    // todo : redirect
+    const match = alarms.filter((alarm) => alarm.id === values.id)[0]
+    dispatch(match ? editAlarm(values) : addAlarm(values))
+    navigation.navigate('Home')
+  }
+
+  const handleDelete = () => {
+    if (isExisting) {
+      dispatch(deleteAlarm(params.id))
+    }
+    navigation.navigate('Home')
   }
 
   return (
-    <View style={style.root}>
+    <ScrollView style={style.root}>
       <AlarmForm
-        initialValues={data}
+        initialValues={initialData}
         onSubmit={handleSubmit}
       />
-    </View>
+      {isExisting && (
+        <Button
+          title="Delete Alarm"
+          onPress={handleDelete}
+        />
+      )}
+    </ScrollView>
   )
 }

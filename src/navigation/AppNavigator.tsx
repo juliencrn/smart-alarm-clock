@@ -4,7 +4,6 @@ import { createStackNavigator, NavigationStackProp } from 'react-navigation-stac
 
 import Home from '../pages/Home'
 import Edit from '../pages/Edit'
-import New from '../pages/New'
 import { ToggleEditButton, AddNewButton } from './Buttons'
 
 interface Props {
@@ -23,9 +22,6 @@ const AppNavigator = createStackNavigator(
     },
     Edit: {
       screen: Edit,
-    },
-    New: {
-      screen: New,
     },
   }, {
     initialRouteName: 'Home',

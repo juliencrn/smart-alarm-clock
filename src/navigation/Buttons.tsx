@@ -26,7 +26,7 @@ export function AddNewButton({ navigation }: HasNavigation) {
 
   const goToNew = () => {
     dispatch(toggleEdit(false))
-    navigation.navigate('New')
+    navigation.navigate('Edit')
   }
 
   return <Button title="+" onPress={goToNew} />

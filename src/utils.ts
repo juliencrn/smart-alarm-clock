@@ -1,4 +1,4 @@
-import { WeekDay, WeekEndDay } from './types'
+import { WeekDay, WeekEndDay, Day } from './types'
 
 const weekday: WeekDay[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
 const weekend: WeekEndDay[] = ['saturday', 'sunday']
@@ -7,6 +7,8 @@ const weekend: WeekEndDay[] = ['saturday', 'sunday']
 export const days = {
   weekday, weekend,
 }
+
+export const allDays: Day[] = [...weekday, ...weekend]
 
 export function getHumanTime(date: Date): string {
   const time = new Date(date)
