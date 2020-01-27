@@ -58,6 +58,15 @@ export default function AlarmItem({
     dispatch(toggleAlarm(id, value))
   }
 
+  // Draft diff for alarm
+  const current = moment()
+  const m = moment(clock)
+  const diffMinutes = m.diff(current, 'minutes')
+  const diff = m.diff(current, 'second')
+
+  const dayMatch = days.includes(current.format('e'))
+  const passed = diff < 0
+
   return (
     <Touchable
       isTouchable={isEditing || false}
@@ -66,7 +75,19 @@ export default function AlarmItem({
       <View style={style.card}>
         <View style={style.main}>
           <Text style={style.clock}>
-            {moment(clock).format('HH:mm')}
+            {m.format('HH:mm')}
+          </Text>
+          <Text>
+            {`Diff: ${diffMinutes} minutes`}
+          </Text>
+          <Text>
+            {`When ?: ${passed ? 'End, passed...' : `Soon, in ${diffMinutes}minutes!`} minutes`}
+          </Text>
+          <Text>
+            {`Day match ?: ${dayMatch ? 'Yes' : 'No'}`}
+          </Text>
+          <Text>
+            {`activated ?: ${activated ? 'Yes' : 'No'}`}
           </Text>
           <Text style={style.meta}>
             <Text style={style.name}>

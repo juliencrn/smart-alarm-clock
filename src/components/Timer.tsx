@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import moment from 'moment'
+import useInterval from '../hooks/useInterval'
 
 const style = StyleSheet.create({
   root: {
@@ -15,11 +16,16 @@ const style = StyleSheet.create({
 })
 
 export default function Timer() {
-  const m = moment()
+  const [m, setM] = useState(moment())
+
+  useInterval(() => {
+    setM(moment())
+  }, 1000)
+
   return (
     <View style={style.root}>
       <Text style={style.text}>
-        {`Current Time: ${m.format('HH:mm')}`}
+        {`Current Time: ${m.format('HH:mm:ss')}`}
       </Text>
       <Text style={style.text}>
         {`Current Day: ${m.format('dddd')} (${m.format('e')})`}
